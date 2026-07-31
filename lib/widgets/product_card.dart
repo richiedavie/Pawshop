@@ -119,9 +119,9 @@ class ProductCard extends StatelessWidget {
                   right: 6,
                   child: Consumer<FavoritesProvider>(
                     builder: (context, favProvider, child) {
-                      final isFav = favProvider.isFavorite(product.id);
+                      final isFav = favProvider.isFavorite(product);
                       return GestureDetector(
-                        onTap: () => favProvider.toggleFavorite(product.id),
+                        onTap: () => favProvider.toggleFavorite(product),
                         child: Container(
                           padding: const EdgeInsets.all(6),
                           decoration: BoxDecoration(

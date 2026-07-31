@@ -4,6 +4,8 @@ import '../models/pet_profile.dart';
 import '../models/product.dart';
 import '../providers/auth_provider.dart';
 import '../providers/pet_profile_provider.dart';
+import '../providers/favorites_provider.dart';
+import '../providers/order_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/guest_promo_sheet.dart';
 import '../widgets/species_toggle.dart';
@@ -88,6 +90,8 @@ class _PetProfileScreenState extends State<PetProfileScreen> {
   }
 
   void _handleLogout() {
+    Provider.of<FavoritesProvider>(context, listen: false).clearFavorites();
+    Provider.of<OrderProvider>(context, listen: false).clearOrders();
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     authProvider.logout();
     ScaffoldMessenger.of(context).showSnackBar(

@@ -46,7 +46,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             actions: [
               Consumer<FavoritesProvider>(
                 builder: (context, favProvider, child) {
-                  final isFav = favProvider.isFavorite(product.id);
+                  final isFav = favProvider.isFavorite(product);
                   return CircleAvatar(
                     backgroundColor: Colors.white.withValues(alpha: 0.9),
                     child: IconButton(
@@ -54,7 +54,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         isFav ? Icons.favorite : Icons.favorite_border,
                         color: isFav ? AppTheme.error : AppTheme.textPrimary,
                       ),
-                      onPressed: () => favProvider.toggleFavorite(product.id),
+                      onPressed: () => favProvider.toggleFavorite(product),
                     ),
                   );
                 },

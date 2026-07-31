@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../data/product_data.dart';
 import '../providers/favorites_provider.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/product_card.dart';
@@ -16,8 +15,7 @@ class FavoritesScreen extends StatelessWidget {
       ),
       body: Consumer<FavoritesProvider>(
         builder: (context, favProvider, child) {
-          final favoriteProducts =
-              favProvider.getFavoriteProducts(ProductData.sampleProducts);
+          final favoriteProducts = favProvider.favoriteProducts;
 
           if (favoriteProducts.isEmpty) {
             return EmptyState(

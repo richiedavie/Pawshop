@@ -2,22 +2,25 @@ import 'package:flutter/foundation.dart';
 import '../models/product.dart';
 
 class FavoritesProvider with ChangeNotifier {
-  final Set<String> _favoriteIds = {'d1', 'c1'}; // Pre-populate 2 favorites for demo feel
+  final List<Product> _favoriteProducts = [];
 
-  Set<String> get favoriteIds => {..._favoriteIds};
+  List<Product> get favoriteProducts => List.unmodifiable(_favoriteProducts);
 
-  bool isFavorite(String productId) => _favoriteIds.contains(productId);
+  bool isFavorite(Product product) {
+    return _favoriteProducts.any((p) => p.id == product.id);
+  }
 
-  void toggleFavorite(String productId) {
-    if (_favoriteIds.contains(productId)) {
-      _favoriteIds.remove(productId);
+  void toggleFavorite(Product product) {
+    if (isFavorite(product)) {
+      _favoriteProducts.removeWhere((p) => p.id == product.id);
     } else {
-      _favoriteIds.add(productId);
+      _favoriteProducts.add(product);
     }
     notifyListeners();
   }
 
-  List<Product> getFavoriteProducts(List<Product> allProducts) {
-    return allProducts.where((p) => _favoriteIds.contains(p.id)).toList();
+  void clearFavorites() {
+    _favoriteProducts.clear();
+    notifyListeners();
   }
 }
