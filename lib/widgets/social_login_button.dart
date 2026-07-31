@@ -33,7 +33,7 @@ class SocialLoginButton extends StatelessWidget {
   factory SocialLoginButton.apple({required VoidCallback onPressed}) {
     return SocialLoginButton(
       label: 'Apple',
-      iconWidget: const Icon(
+      iconWidget: Icon(
         Icons.apple,
         color: AppTheme.textPrimary,
         size: 22,
@@ -50,7 +50,7 @@ class SocialLoginButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           backgroundColor: AppTheme.surface,
           foregroundColor: AppTheme.textPrimary,
-          side: const BorderSide(color: AppTheme.border, width: 1.0),
+          side: BorderSide(color: AppTheme.border, width: 1.0),
           padding: const EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
@@ -64,7 +64,7 @@ class SocialLoginButton extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppTheme.textPrimary,
                 fontWeight: FontWeight.w600,
                 fontSize: 14,

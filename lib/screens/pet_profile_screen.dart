@@ -6,6 +6,7 @@ import '../providers/auth_provider.dart';
 import '../providers/pet_profile_provider.dart';
 import '../providers/favorites_provider.dart';
 import '../providers/order_provider.dart';
+import '../providers/theme_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/guest_promo_sheet.dart';
 import '../widgets/species_toggle.dart';
@@ -171,6 +172,40 @@ class _PetProfileScreenState extends State<PetProfileScreen> {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(height: 28),
+
+                // Theme Toggle
+                Consumer<ThemeProvider>(
+                  builder: (context, themeProvider, child) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Display',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        SwitchListTile(
+                          title: const Text('Dark Mode'),
+                          subtitle: const Text('Toggle between light and dark theme'),
+                          secondary: Icon(
+                            themeProvider.isDarkMode
+                                ? Icons.dark_mode
+                                : Icons.light_mode,
+                            color: AppTheme.primary,
+                          ),
+                          value: themeProvider.isDarkMode,
+                          onChanged: (value) => themeProvider.toggleTheme(value),
+                          activeThumbColor: AppTheme.primary,
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 const SizedBox(height: 28),
 

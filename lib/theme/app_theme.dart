@@ -18,6 +18,13 @@ class AppTheme {
 
   static const Color border = Color(0xFFE5E3DC);
 
+  // Dark Theme Color Constants
+  static const Color darkBackground = Color(0xFF121212);
+  static const Color darkSurface = Color(0xFF1E1E1E);
+  static const Color darkTextPrimary = Color(0xFFE0E0E0);
+  static const Color darkTextSecondary = Color(0xFFA0A0A0);
+  static const Color darkBorder = Color(0xFF404040);
+
   // Border Radius Constants
   static const double radiusSmall = 8.0;
   static const double radiusMedium = 12.0;
@@ -41,6 +48,22 @@ class AppTheme {
         ),
       ];
 
+  // Returns the appropriate color based on brightness
+  static Color backgroundColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark ? darkBackground : background;
+
+  static Color surfaceColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark ? darkSurface : surface;
+
+  static Color textPrimaryColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark ? darkTextPrimary : textPrimary;
+
+  static Color textSecondaryColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark ? darkTextSecondary : textSecondary;
+
+  static Color borderColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark ? darkBorder : border;
+
   // ThemeData Definition
   static ThemeData get lightTheme {
     final baseTextTheme = GoogleFonts.nunitoSansTextTheme();
@@ -49,14 +72,15 @@ class AppTheme {
       useMaterial3: true,
       scaffoldBackgroundColor: background,
       primaryColor: primary,
-      colorScheme: const ColorScheme.light(
-        primary: primary,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primary,
         secondary: accent,
         surface: surface,
         error: error,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: textPrimary,
+        brightness: Brightness.light,
       ),
       textTheme: baseTextTheme.copyWith(
         displayLarge: baseTextTheme.displayLarge?.copyWith(
@@ -155,11 +179,11 @@ class AppTheme {
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radiusMedium),
-          borderSide: const BorderSide(color: border),
+          borderSide: const BorderSide(color: border, width: 1.0),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radiusMedium),
-          borderSide: const BorderSide(color: border),
+          borderSide: const BorderSide(color: border, width: 1.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radiusMedium),
@@ -171,12 +195,170 @@ class AppTheme {
         selectedColor: primary,
         secondarySelectedColor: primary,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        labelStyle: GoogleFonts.nunitoSans(fontSize: 13, fontWeight: FontWeight.w600, color: textPrimary),
-        secondaryLabelStyle: GoogleFonts.nunitoSans(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white),
+        labelStyle: GoogleFonts.nunitoSans(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: textPrimary,
+        ),
+        secondaryLabelStyle: GoogleFonts.nunitoSans(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
         brightness: Brightness.light,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusCircular),
           side: const BorderSide(color: border),
+        ),
+      ),
+    );
+  }
+
+  // Dark Theme Definition
+  static ThemeData get darkTheme {
+    final baseTextTheme = GoogleFonts.nunitoSansTextTheme();
+
+    return ThemeData(
+      useMaterial3: true,
+      scaffoldBackgroundColor: darkBackground,
+      primaryColor: primary,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primary,
+        secondary: accent,
+        surface: darkSurface,
+        error: error,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: darkTextPrimary,
+        brightness: Brightness.dark,
+      ),
+      textTheme: baseTextTheme.copyWith(
+        displayLarge: baseTextTheme.displayLarge?.copyWith(
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+          color: darkTextPrimary,
+          letterSpacing: -0.5,
+        ),
+        headlineMedium: baseTextTheme.headlineMedium?.copyWith(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          color: darkTextPrimary,
+        ),
+        titleLarge: baseTextTheme.titleLarge?.copyWith(
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: darkTextPrimary,
+        ),
+        titleMedium: baseTextTheme.titleMedium?.copyWith(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: darkTextPrimary,
+        ),
+        bodyLarge: baseTextTheme.bodyLarge?.copyWith(
+          fontSize: 15,
+          fontWeight: FontWeight.normal,
+          color: darkTextPrimary,
+        ),
+        bodyMedium: baseTextTheme.bodyMedium?.copyWith(
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+          color: darkTextSecondary,
+        ),
+        labelLarge: baseTextTheme.labelLarge?.copyWith(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        labelSmall: baseTextTheme.labelSmall?.copyWith(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: darkTextSecondary,
+        ),
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: darkSurface,
+        elevation: 0,
+        centerTitle: false,
+        iconTheme: IconThemeData(color: darkTextPrimary),
+        titleTextStyle: TextStyle(
+          color: darkTextPrimary,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      cardTheme: CardThemeData(
+        color: darkSurface,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radiusLarge),
+          side: const BorderSide(color: darkBorder, width: 0.8),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primary,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          minimumSize: const Size(0, 48),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radiusMedium),
+          ),
+          textStyle: GoogleFonts.nunitoSans(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: primary,
+          side: const BorderSide(color: primary, width: 1.5),
+          minimumSize: const Size(0, 48),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radiusMedium),
+          ),
+          textStyle: GoogleFonts.nunitoSans(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: darkSurface,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radiusMedium),
+          borderSide: const BorderSide(color: darkBorder, width: 1.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radiusMedium),
+          borderSide: const BorderSide(color: darkBorder, width: 1.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radiusMedium),
+          borderSide: const BorderSide(color: primary, width: 1.5),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: darkSurface,
+        selectedColor: primary,
+        secondarySelectedColor: primary,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        labelStyle: GoogleFonts.nunitoSans(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: darkTextPrimary,
+        ),
+        secondaryLabelStyle: GoogleFonts.nunitoSans(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
+        brightness: Brightness.dark,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radiusCircular),
+          side: const BorderSide(color: darkBorder),
         ),
       ),
     );

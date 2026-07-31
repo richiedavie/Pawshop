@@ -42,7 +42,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           SliverAppBar(
             expandedHeight: 340,
             pinned: true,
-            backgroundColor: AppTheme.background,
+            backgroundColor: AppTheme.backgroundColor(context),
             actions: [
               Consumer<FavoritesProvider>(
                 builder: (context, favProvider, child) {
